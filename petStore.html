@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <title>PetStore</title>
+</head>
+<body>
+    <div id="app3">
+        <button type="button" v-on:click="showCheckUot">
+            <span class="fa-solid fa-cart-plus"></span>
+            Check out: {{items.length}}
+        </button>
+        <main>
+            <div>
+                <figure>
+                    <img class="width : 50px" src="assets/Simple!.3.png" alt="album cover">
+                </figure>
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p v-text="product.price"></p>
+                <button type="button" v-if="CanAddToCart" v-on:click="addToCart">add to cart</button>
+                <div v-else>
+                    <button disabled>add to cart</button>
+                </div>
+            </div>
+        </main>
+        
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app3",
+            CheckUot: true,
+            data() {
+                return {
+                    items: [],
+                    itemsNo: 0,
+                    product: {
+                        id: 10001,
+                        title: "Cat food",
+                        description: "Food for your cat",
+                        price: 2000,
+                        amount: 5
+                    }  
+                };
+            },
+            methods: {
+                addToCart() {
+                    this.items.push(this.id);
+                    this.product.amount -= 1;
+                    console.log(this.items.lenght);
+                }, 
+                showCheckUot() {
+                    if(this.CheckUot) {
+                        this.CheckUot = false;
+                    } else {
+                        this.CheckUot = true;
+                    }
+                }
+            },
+            computed: {
+                itemsInCart:function() {
+                    return this.items.lenght || "";
+                },
+                CanAddToCart:function() {
+                    return this.product.amount >= this.items;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
